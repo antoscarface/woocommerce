@@ -498,7 +498,7 @@ abstract class WC_Abstract_Order {
 		do_action( 'woocommerce_order_add_shipping', $this->id, $item_id, $shipping_rate );
 
 		// Update total
-		$this->set_total( $this->order_shipping + wc_format_decimal( $shipping_rate->cost ), 'shipping' );
+		$this->set_total( $this->order_shipping + $shipping_rate->cost, 'shipping' );
 
 		return $item_id;
 	}
@@ -538,7 +538,7 @@ abstract class WC_Abstract_Order {
 			wc_update_order_item_meta( $item_id, 'cost', wc_format_decimal( $args['cost'] ) );
 
 			// Update total
-			$this->set_total( $this->order_shipping - wc_format_decimal( $old_cost ) + wc_format_decimal( $args['cost'] ), 'shipping' );
+			$this->set_total( $this->order_shipping - $old_cost + $args['cost'], 'shipping' );
 		}
 
 		do_action( 'woocommerce_order_update_shipping', $this->id, $item_id, $args );
